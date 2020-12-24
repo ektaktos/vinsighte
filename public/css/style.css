@@ -1,0 +1,14 @@
+.overlay-bg{
+  height: 100vh;
+}
+
+.prediction-card{
+  margin: auto;
+  border-radius: 10px;
+}
+
+fieldset{
+  border: 1px solid #d3d3d3;
+  border-radius: 5px;
+  padding: 1rem;
+}
