@@ -8,7 +8,7 @@
                 <form @submit="proceed">
                 <div class="form-group form-inline">
                     <label class="col-sm-2 text-left p-0">Company</label>
-                    <input type="text" class="form-control col-sm-8" v-model="company_name">
+                    <input type="text" class="form-control col-sm-8" v-model="user.name">
                 </div>
 
                 <div class="form-group form-inline">
@@ -46,7 +46,7 @@
 
 <script>
 export default {
-    // props: ['user'],
+    props: ['user'],
     data() {
         return {
             image: '',
@@ -57,7 +57,7 @@ export default {
         }
     },
     mounted(){
-        // console.log(this.user);
+        console.log(this.user);
     },
     methods: {
         uploadImage(e) {
