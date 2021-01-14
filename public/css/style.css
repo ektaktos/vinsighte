@@ -12,3 +12,24 @@ fieldset{
   border-radius: 5px;
   padding: 1rem;
 }
+
+#imagePreviewBox{
+  width: 280px;
+  height: 200px;
+  margin: 0 auto;
+}
+
+.form-inline label{
+  justify-content: flex-start;
+}
+
+.imagePreview{
+  object-fit: contain;
+  width: 260px;
+  height: 190px;
+}
+
+.btn-primary{
+  background-color: #004e92;
+  font-size: 13px;
+}

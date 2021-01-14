@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::post('/upload-image', [\App\Http\Controllers\HomeController::class, 'uploadImage']);
+Route::post('/upload-image', [\App\Http\Controllers\HomeController::class, 'uploadforPrediction'])->name('submitData');
 Route::get('/zipped/create', [App\Http\Controllers\HomeController::class, 'zipImage']
 );
 
