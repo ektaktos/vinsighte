@@ -1988,7 +1988,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  // props: ['user'],
+  props: ['user'],
   data: function data() {
     return {
       image: '',
@@ -1998,7 +1998,8 @@ __webpack_require__.r(__webpack_exports__);
       percentCompleted: 0
     };
   },
-  mounted: function mounted() {// console.log(this.user);
+  mounted: function mounted() {
+    console.log(this.user);
   },
   methods: {
     uploadImage: function uploadImage(e) {
@@ -37710,19 +37711,19 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.company_name,
-                        expression: "company_name"
+                        value: _vm.user.name,
+                        expression: "user.name"
                       }
                     ],
                     staticClass: "form-control col-sm-8",
                     attrs: { type: "text" },
-                    domProps: { value: _vm.company_name },
+                    domProps: { value: _vm.user.name },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.company_name = $event.target.value
+                        _vm.$set(_vm.user, "name", $event.target.value)
                       }
                     }
                   })
