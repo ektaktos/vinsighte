@@ -8,7 +8,7 @@
                 <form @submit="proceed">
                 <div class="form-group form-inline">
                     <label class="col-sm-2 text-left p-0">Company</label>
-                    <input type="text" class="form-control col-sm-8" v-model="name">
+                    <input type="text" class="form-control col-sm-8" v-model="company_name">
                 </div>
 
                 <div class="form-group form-inline">
