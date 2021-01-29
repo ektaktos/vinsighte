@@ -10,7 +10,7 @@
         <th>sn</th>
         <th>Image</th>
         <th>Processed Data</th>
-        <th>Date</th>
+        <th>Processed Date</th>
       </tr>
       @forelse ($logs as $log)
         <tr>

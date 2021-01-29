@@ -20,7 +20,7 @@ class CreateLogsTable extends Migration
             $table->string('image_url');
             $table->string('format');
             $table->enum('status', ['started', 'finished', 'failed']);
-            $table->string('processed_data')->nullable();
+            $table->longText('processed_data')->nullable();
             $table->datetime('processed_at')->nullable();
             $table->timestamps();
         });

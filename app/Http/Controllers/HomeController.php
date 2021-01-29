@@ -41,10 +41,10 @@ class HomeController extends Controller
                     $log->processed_data = $res['text'][$job->id];
                     $log->processed_at = Carbon::now();
                     $log->save();
-                } else {
-                    $log->status = $res['status'];
+                } else if($res['status'] == 'finished') {
+                    $log->status = 'failed';
                     $log->save();
-                }
+                } 
             }
         }
         return response(['response' => $res]);
