@@ -28,6 +28,28 @@ class HomeController extends Controller
         return view('logs')->with(['logs' => $logs]);
     }
 
+    public function cronJob(){
+        // Fetch all jobIds that are not finished yet
+        $jobs = Logs::where(['status' => 'started'])->get();
+        if ($jobs->count() > 0) {
+            foreach ($jobs as $job) {
+                $id = $job->id;
+                $log = Logs::find($job->id);
+                $res = Http::get("http://dehbaiyor.herokuapp.com/ocr/results/{$job->jobId}")->json();
+                if ($res['status'] == 'finished') {
+                    $log->status = $res['status'];
+                    $log->processed_data = $res['text'][$job->id];
+                    $log->processed_at = Carbon::now();
+                    $log->save();
+                } else {
+                    $log->status = $res[$job->jobId]['status'];
+                    $log->save();
+                }
+            }
+        }
+        return response(['response' => $res]);
+    }
+
     public function searchLogs(Request $request){
         $this->validate($request, [
             'queryString' => 'required',
@@ -57,16 +79,16 @@ class HomeController extends Controller
             $image->image_url = $imageResult['url'];
             $image->format = 'json';
             $image->save();
-            $response = Http::get('https://vs-mtr-api.herokuapp.com/ocr/'.$image->id.','.$imageResult['url']);
+            $response = Http::get('https://dehbaiyor.herokuapp.com/ocr/'.$image->id.','.$imageResult['url']);
             $imagesData[] =  $response->json();
             $saveProcessed = Logs::find($image->id);
 
-            $saveProcessed->processed_data = $response->json()[$image->id];
-            $saveProcessed->processed_at = Carbon::now();
+            $saveProcessed->jobId = $response->json();
+            // $saveProcessed->processed_at = Carbon::now();
             $saveProcessed->save();
-
         }
-        return response(['messsage' => 'Saved Successfully'], 200);
+        return response(['messsage' => $imagesData], 200);
+        // return response(['messsage' => 'Saved Successfully'  ], 200);
 
 
         // $extension = $request->file('image')->getClientOriginalExtension();

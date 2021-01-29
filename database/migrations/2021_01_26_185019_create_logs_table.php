@@ -16,8 +16,10 @@ class CreateLogsTable extends Migration
         Schema::create('logs', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
+            $table->string('jobId')->nullable();
             $table->string('image_url');
             $table->string('format');
+            $table->enum('status', ['started', 'finished', 'failed']);
             $table->string('processed_data')->nullable();
             $table->datetime('processed_at')->nullable();
             $table->timestamps();

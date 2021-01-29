@@ -8,6 +8,7 @@
         <tr>
           <th>sn</th>
           <th>Image</th>
+          <th>status</th>
           <th>Processed Data</th>
           <th>Date</th>
         </tr>
@@ -15,6 +16,7 @@
           <tr>
             <td> {{ $loop->iteration }}</td>
             <td> <a href="{{ $log->image_url }}" target="_blank">Image</a> </td>
+            <td> {{ $log->status }} </td>
             <td> {{ $log->processed_data}} </td>
             <td> {{ date('F j, Y, g:i a', strtotime($log->processed_at)) }} </td>
           </tr>

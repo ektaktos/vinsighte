@@ -70,7 +70,7 @@ export default {
                 this.images.push(element); 
             }
             this.image = this.$refs.file.files[0];
-            console.log(this.images);
+            // console.log(this.images);
             // console.log(this.image);
             const images = e.target.files;
             for (let i = 0; i < images.length; i++) {
@@ -102,8 +102,8 @@ export default {
             .then((res) => {
                 this.isLoading = false;
                 this.$swal('Success!!','Your Input has been Successfully processed', 'success');
-                window.location.href = 'http://vinsighte.herokuapp.com/logs'
                 // console.log(res);
+                window.location.href = 'http://vinsighte.herokuapp.com/logs'
             }).catch((err) => {
                 this.isLoading = false;
                 console.log(err.response.data);
