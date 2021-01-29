@@ -11,19 +11,18 @@
           <th>Processed Data</th>
           <th>Date</th>
         </tr>
-          @forelse ($logs as $log)
-            <tr>
-              <td> {{ $loop->iteration }}</td>
-              <td> <a href="{{ $log->image_url }}" target="_blank">Image</a> </td>
-              <td> {{ $log->processed_data}} </td>
-              <td> {{ date('F j, Y, g:i a', strtotime($log->processed_at)) }} </td>
-            </tr>
-          @empty
-            <tr>
-              <td colspan="4" align="center"> No Records yet</td>
-            </tr>
-          @endforelse
-        @endif
+        @forelse ($logs as $log)
+          <tr>
+            <td> {{ $loop->iteration }}</td>
+            <td> <a href="{{ $log->image_url }}" target="_blank">Image</a> </td>
+            <td> {{ $log->processed_data}} </td>
+            <td> {{ date('F j, Y, g:i a', strtotime($log->processed_at)) }} </td>
+          </tr>
+        @empty
+          <tr>
+            <td colspan="4" align="center"> No Records yet</td>
+          </tr>
+        @endforelse
       </table>
     </div>
   </div>
