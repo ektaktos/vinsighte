@@ -24,6 +24,7 @@ class HomeController extends Controller
     }
 
     public function getLogs(){
+        $this->cronJob();
         $logs = Logs::where(['user_id' => Auth::id()])->get();
         return view('logs')->with(['logs' => $logs]);
     }
@@ -47,7 +48,7 @@ class HomeController extends Controller
                 } 
             }
         }
-        return response(['response' => $res]);
+        // return response(['response' => $res]);
     }
 
     public function searchLogs(Request $request){
