@@ -2054,7 +2054,7 @@ __webpack_require__.r(__webpack_exports__);
 
         _this2.$swal('Success!!', 'Your Input has been Successfully processed', 'success');
 
-        console.log(res);
+        window.location.href = 'http://vinsighte.herokuapp.com/logs'; // console.log(res);
       })["catch"](function (err) {
         _this2.isLoading = false;
         console.log(err.response.data);

@@ -12,20 +12,18 @@
         <th>Processed Data</th>
         <th>Date</th>
       </tr>
-     
-      @empty($logs)
-        <tr>
-          <td colspan="4" align="center"> No Records yet</td>
-        </tr>
-      @endempty
-      @foreach ($logs as $log)
+      @forelse ($logs as $log)
         <tr>
           <td> {{ $loop->iteration }}</td>
           <td> <a href="{{ $log->image_url }}" target="_blank">Image</a> </td>
           <td> {{ $log->processed_data}} </td>
           <td> {{ date('F j, Y, g:i a', strtotime($log->processed_at)) }} </td>
         </tr>
-      @endforeach
+      @empty
+        <tr>
+          <td colspan="4" align="center"> No Record found for the search</td>
+        </tr>
+      @endforelse
     </table>
   </div>
 </div>
