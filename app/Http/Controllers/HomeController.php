@@ -40,7 +40,7 @@ class HomeController extends Controller
     public function uploadforPrediction(Request $request){
         $this->validate($request, [
             'images.*' => 'required',
-            'format' => 'required',
+            // 'format' => 'required',
         ],[
             'images.*.required' => 'Please upload an image only',
             'images.*.mimes' => 'Only jpeg, png, jpg and bmp images are allowed',
@@ -55,7 +55,7 @@ class HomeController extends Controller
             // Save Image upload to cloudinary
             $image->user_id = Auth::id();
             $image->image_url = $imageResult['url'];
-            $image->format = $request->format;
+            $image->format = 'json';
             $image->save();
             $response = Http::get('https://vs-mtr-api.herokuapp.com/ocr/'.$image->id.','.$imageResult['url']);
             $imagesData[] =  $response->json();
