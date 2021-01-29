@@ -24,9 +24,8 @@ class HomeController extends Controller
     }
 
     public function getLogs(){
-        $logs = Logs::where(['user_id' => 2])->get();
+        $logs = Logs::where(['user_id' => Auth::id()])->get();
         return view('logs')->with(['logs' => $logs]);
-        // return response(['logs' => $logs], 200); 
     }
 
     public function searchLogs(Request $request){
