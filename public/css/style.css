@@ -14,8 +14,10 @@ fieldset{
 }
 
 #imagePreviewBox{
-  width: 280px;
-  height: 200px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   margin: 0 auto;
 }
 
@@ -25,8 +27,11 @@ fieldset{
 
 .imagePreview{
   object-fit: contain;
-  width: 260px;
-  height: 190px;
+  width: 25%;
+  margin-left: 1rem;
+}
+.imagePreview:first-child{
+  margin: 0;
 }
 
 .btn-primary{

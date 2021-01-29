@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Images;
-use Carbon;
+use App\Models\Logs;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use JD\Cloudder\Facades\Cloudder;
+use Illuminate\Support\Facades\Http;
 
 use ZipArchive;
 
@@ -22,27 +23,59 @@ class HomeController extends Controller
         return view('welcome');
     }
 
+    public function getLogs(){
+        $logs = Logs::where(['user_id' => 2])->get();
+        return view('logs')->with(['logs' => $logs]);
+        // return response(['logs' => $logs], 200); 
+    }
+
+    public function searchLogs(Request $request){
+        $this->validate($request, [
+            'queryString' => 'required',
+        ]);
+        $searchString = $request->query('queryString');
+        $logs = Logs::where('processed_data', 'LIKE', "%{$searchString}%")->get();
+        return view('search')->with(['logs' => $logs, 'queryString' => $searchString]);
+    }
+
     public function uploadforPrediction(Request $request){
         $this->validate($request, [
-            'image' => 'required|file',
+            'images.*' => 'required',
             'format' => 'required',
+        ],[
+            'images.*.required' => 'Please upload an image only',
+            'images.*.mimes' => 'Only jpeg, png, jpg and bmp images are allowed',
+            'images.*.max' => 'Sorry! Maximum allowed size for an image is 2MB',
         ]);
-        $image = new Images();
-        Cloudder::upload($request->image);
-        $imageResult = Cloudder::getResult();
-        // Save Image upload to cloudinary
-        $image->user_id = Auth::id();
-        $image->image_url = $imageResult['url'];
-        $image->format = $request->format;
-        $image->save();
+
+        $imagesData = [];
+        foreach ($request->file() as $img) {
+            $image = new Logs();
+            Cloudder::upload($img);
+            $imageResult = Cloudder::getResult();
+            // Save Image upload to cloudinary
+            $image->user_id = Auth::id();
+            $image->image_url = $imageResult['url'];
+            $image->format = $request->format;
+            $image->save();
+            $response = Http::get('https://vs-mtr-api.herokuapp.com/ocr/'.$image->id.','.$imageResult['url']);
+            $imagesData[] =  $response->json();
+            $saveProcessed = Logs::find($image->id);
+
+            $saveProcessed->processed_data = $response->json()[$image->id];
+            $saveProcessed->processed_at = Carbon::now();
+            $saveProcessed->save();
+
+        }
+        return response(['messsage' => 'Saved Successfully'], 200);
 
 
-        $extension = $request->file('image')->getClientOriginalExtension();
-        $imageExt = 'image.'.$extension;
-        $path = $request->file('image')->storeAs('images', $imageExt, 'public');
+        // $extension = $request->file('image')->getClientOriginalExtension();
+        // $imageExt = 'image.'.$extension;
+        // $path = $request->file('image')->storeAs('images', $imageExt, 'public');
 
-        $message = $this->zipImage($path, $imageExt);
-        return response($message);
+        // $message = $this->zipImage($path, $imageExt);
+        // return response($message);
     }
 
     public function uploadToS3($image){
@@ -77,13 +110,6 @@ class HomeController extends Controller
         $imageResult = Cloudder::getResult();
         // return response(['image' => $imageResult]);
         return response(['image' => public_path('uploads/'.$zipFileName)]);
-        // $headers = array(
-        //     'Content-Type' => 'application/octet-stream',
-        // );
-        // $filetopath=$public_dir.'/'.$zipFileName;
-        // if(file_exists($filetopath)){
-        //     return response()->download($filetopath,$zipFileName,$headers);
-        // } 
         return ['messsage' => 'File successfully zipped'];
     } 
 }

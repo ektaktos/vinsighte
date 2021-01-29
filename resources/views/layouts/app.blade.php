@@ -53,6 +53,16 @@
                                 </li>
                             @endif
                         @else
+                        <li>
+                            <form action="{{ route('search') }}" method="GET" role="search">
+                                <div class="input-group">
+                                    <input type="search" class="form-control mr-2" name="queryString" placeholder="Search" id="term">
+                                </div>
+                            </form>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('logs') }}">{{ __('Logs') }}</a>
+                        </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}

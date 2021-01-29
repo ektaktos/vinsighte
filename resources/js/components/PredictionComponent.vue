@@ -1,5 +1,5 @@
 <template>
-  <div class="relative flex items-top justify-center py-5 overlay-bg">
+  <div class="relative flex items-top justify-center py-5">
         <div class="card shadow p-2 prediction-card col-lg-6 col-md-6">
             <div class="card-body">
             <h3 class="text-center">Prediction</h3>
@@ -13,7 +13,7 @@
 
                 <div class="form-group form-inline">
                     <label class="col-sm-2 text-left p-0">Image</label>
-                    <input type="file" ref="file" id="file-upload" accept="image" @change="uploadImage">
+                    <input type="file" ref="file" id="file-upload" multiple accept="image/*, application/pdf" @change="uploadImage">
                     <!-- <input type="file" ref="file" id="file-upload" @change="uploadImage"> -->
                 </div>
                     <!-- {{ user.name }} -->
@@ -27,14 +27,16 @@
                 </div>
 
                 <div id="imagePreviewBox" v-if="imageDataUrl" >
-                    <img :src="imageDataUrl" class="imagePreview">
+                    <!-- <div v-for="(image, index) in imageDataUrl" :key="index"> -->
+                        <img v-for="(image, index) in imageDataUrl" :key="index" :src="image" class="imagePreview">
+                    <!-- </div> -->
                 </div>
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="w-50">
                         <progress max="100" :value.prop="percentCompleted"></progress>
                     </div>
                     <div class="w-50 text-right">
-                        <button class="btn btn-primary" type="submit">Start Extraction</button>
+                        <button class="btn btn-primary" type="submit">Start Extraction<span class="spin" v-if="isLoading"></span></button>
                     </div>
                 </div>
                 </form>
@@ -49,29 +51,39 @@ export default {
     props: ['user'],
     data() {
         return {
+            images: [],
             image: '',
-            imageDataUrl: '',
-            company_name: '',
+            imageDataUrl: [],
             format: '',
+            isLoading: false,
             percentCompleted: 0,
         }
     },
     mounted(){
-        console.log(this.user);
+        // console.log(this.user);
     },
     methods: {
         uploadImage(e) {
+            const tempImages = this.$refs.file.files;
+            for (let i = 0; i < tempImages.length; i++) {
+                const element = tempImages[i];
+                this.images.push(element); 
+            }
             this.image = this.$refs.file.files[0];
+            console.log(this.images);
             // console.log(this.image);
-            const image = e.target.files[0];
-            const reader = new FileReader();
-            reader.readAsDataURL(image);
-            reader.onload = (e2) => {
-                this.imageDataUrl = e2.target.result;
-            };
+            const images = e.target.files;
+            for (let i = 0; i < images.length; i++) {
+                const reader = new FileReader();
+                reader.readAsDataURL(images[i]);
+                reader.onload = (e2) => {
+                    this.imageDataUrl.push(e2.target.result);
+                };
+            }
         },
         proceed(e){
             e.preventDefault();
+            this.isLoading = true
             const config = {
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -80,33 +92,44 @@ export default {
                     this.percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
                 }
             }
-
             let postData =  new FormData();
-            postData.append('image', this.image);
-            postData.append('company', this.company_name);
+            for (let i = 0; i < this.images.length; i++) {
+                const element = this.images[i];
+                postData.append(`images${i}`, element);
+            }
             postData.append('format', this.format);
-
-
-            // const postData = {
-            //     company: this.company_name,
-            //     image: this.image,
-            //     format: this.format,
-            // }
-            console.log(postData);
             axios.post('/upload-image', postData, config)
             .then((res) => {
-                console.log(res);
-                console.log(res.data);
+                this.isLoading = false;
+                this.$swal('Success!!','Your Input has been Successfully processed', 'success');
+                window.location.href = 'http://vinsighte.herokuapp.com/logs'
+                // console.log(res);
             }).catch((err) => {
+                this.isLoading = false;
                 console.log(err.response.data);
             })
-
         }
     },
     
 }
 </script>
 
-<style>
-
+<style scoped>
+    .spin {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border: 3px solid rgba(255,255,255,.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+    -webkit-animation: spin 1s ease-in-out infinite;
+    margin-left: 10px;
+  }
+  @keyframes spin {
+      to { -webkit-transform: rotate(360deg); }
+  }
+  @-webkit-keyframes spin {
+      to { -webkit-transform: rotate(360deg); }
+  }
 </style>
