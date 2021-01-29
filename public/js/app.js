@@ -2001,8 +2001,7 @@ __webpack_require__.r(__webpack_exports__);
       percentCompleted: 0
     };
   },
-  mounted: function mounted() {// console.log(this.user);
-  },
+  mounted: function mounted() {},
   methods: {
     uploadImage: function uploadImage(e) {
       var _this = this;
@@ -2052,10 +2051,9 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('/upload-image', postData, config).then(function (res) {
         _this2.isLoading = false;
 
-        _this2.$swal('Success!!', 'Your Input has been Successfully processed', 'success'); // console.log(res);
-
-
-        window.location.href = 'http://vinsighte.herokuapp.com/logs';
+        _this2.$swal('Success!!', 'Your Input has been Successfully processed', 'success').then(function () {
+          window.location.href = 'http://vinsighte.herokuapp.com/logs';
+        });
       })["catch"](function (err) {
         _this2.isLoading = false;
         console.log(err.response.data);

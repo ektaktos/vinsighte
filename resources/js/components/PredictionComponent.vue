@@ -60,7 +60,7 @@ export default {
         }
     },
     mounted(){
-        // console.log(this.user);
+        
     },
     methods: {
         uploadImage(e) {
@@ -101,9 +101,9 @@ export default {
             axios.post('/upload-image', postData, config)
             .then((res) => {
                 this.isLoading = false;
-                this.$swal('Success!!','Your Input has been Successfully processed', 'success');
-                // console.log(res);
-                window.location.href = 'http://vinsighte.herokuapp.com/logs'
+                this.$swal('Success!!','Your Input has been Successfully processed', 'success').then(() => {
+                    window.location.href = 'http://vinsighte.herokuapp.com/logs';
+                });
             }).catch((err) => {
                 this.isLoading = false;
                 console.log(err.response.data);

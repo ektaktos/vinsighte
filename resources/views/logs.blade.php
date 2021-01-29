@@ -18,7 +18,11 @@
             <td> <a href="{{ $log->image_url }}" target="_blank">Image</a> </td>
             <td> {{ $log->status }} </td>
             <td> {{ $log->processed_data}} </td>
-            <td> {{ date('F j, Y, g:i a', strtotime($log->processed_at)) }} </td>
+            @if (!empty($log->processed_data))
+              <td> {{ date('F j, Y, g:i a', strtotime($log->processed_at)) }} </td>
+            @else
+              <td> {{ date('F j, Y, g:i a', strtotime($log->created_at)) }} </td>  
+            @endif
           </tr>
         @empty
           <tr>
