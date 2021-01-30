@@ -28,9 +28,14 @@
 
 <script>
 export default {
-  props: ['logs', 'pending'],
+  props: ['jobLogs', 'pendingJobs'],
+  data() {
+    return {
+      logs: this.jobLogs,
+      pending: this.pendingJobs
+    }
+  },
   created() {
-    
     setInterval(() => {
       if (this.pending > 0) {
         this.getLogs();
