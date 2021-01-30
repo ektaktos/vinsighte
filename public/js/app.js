@@ -1990,16 +1990,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['job-logs', 'pending-jobs'],
+  props: ['joblogs', 'pendingjobs'],
   data: function data() {
     return {
-      logs: this.job - logs,
-      pending: this.pending - jobs
+      logs: this.joblogs,
+      pending: this.pendingjobs
     };
   },
   created: function created() {
     var _this = this;
 
+    // this.logs = this.joblogs;
+    // this.pending = this.pendingjobs;
+    console.log(this.logs);
+    console.log(this.joblogs);
     setInterval(function () {
       if (_this.pending > 0) {
         _this.getLogs();
@@ -68129,7 +68133,7 @@ var render = function() {
     _c("table", { staticClass: "table" }, [
       _vm._m(0),
       _vm._v(" "),
-      !_vm.logs.length
+      _vm.logs.length
         ? _c(
             "tbody",
             _vm._l(_vm.logs, function(log, index) {

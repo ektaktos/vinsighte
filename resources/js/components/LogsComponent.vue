@@ -8,7 +8,7 @@
           <th>Processed Data</th>
           <th>Processed Date</th>
         </tr>
-        <tbody v-if="!logs.length">
+        <tbody v-if="logs.length">
           <tr v-for="(log, index) in logs" :key="index">
             <td> {{ index + 1 }}</td>
             <td> <a :href="log.image_url " target="_blank">Image</a> </td>
@@ -28,11 +28,11 @@
 
 <script>
 export default {
-  props: ['job-logs', 'pending-jobs'],
+  props: ['joblogs', 'pendingjobs'],
   data() {
     return {
-      logs: this.job-logs,
-      pending: this.pending-jobs
+      logs: this.joblogs,
+      pending: this.pendingjobs
     }
   },
   created() {
