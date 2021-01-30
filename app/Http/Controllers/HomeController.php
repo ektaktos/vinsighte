@@ -23,10 +23,16 @@ class HomeController extends Controller
         return view('welcome');
     }
 
-    public function getLogs(){
+    public function Logs(){
         $this->cronJob();
+        $pending = Logs::where(['status' => 'started'])->count();
         $logs = Logs::where(['user_id' => Auth::id()])->get();
-        return view('logs')->with(['logs' => $logs]);
+        return ['logs' => $logs, 'pendingJobs' => $pending];
+    }
+
+    public function getLogs(){
+        $logs = $this->Logs();
+        return view('logs')->with($logs);
     }
 
     public function cronJob(){
@@ -35,11 +41,11 @@ class HomeController extends Controller
         if ($jobs->count() > 0) {
             foreach ($jobs as $job) {
                 $id = $job->id;
-                $log = Logs::find($job->id);
+                $log = Logs::find($id);
                 $res = Http::get("http://dehbaiyor.herokuapp.com/ocr/results/{$job->jobId}")->json();
                 if ($res['status'] == 'finished') {
                     $log->status = $res['status'];
-                    $log->processed_data = $res['text'][$job->id];
+                    $log->processed_data = $res['text'][$id][0];
                     $log->processed_at = Carbon::now();
                     $log->save();
                 } else if($res['status'] == 'finished') {
