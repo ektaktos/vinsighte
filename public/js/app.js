@@ -2000,11 +2000,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   created: function created() {
     var _this = this;
 
-    // this.logs = this.joblogs;
-    // this.pending = this.pendingjobs;
-    console.log(this.logs);
-    console.log(this.joblogs);
     setInterval(function () {
+      console.log(_this.pending);
+
       if (_this.pending > 0) {
         _this.getLogs();
       }

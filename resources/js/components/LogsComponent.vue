@@ -37,6 +37,7 @@ export default {
   },
   created() {
     setInterval(() => {
+      console.log(this.pending);
       if (this.pending > 0) {
         this.getLogs();
       }
