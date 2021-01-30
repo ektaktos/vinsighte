@@ -37,11 +37,10 @@ export default {
   },
   created() {
     setInterval(() => {
-      console.log(this.pending);
       if (this.pending > 0) {
         this.getLogs();
       }
-    }, 10000);
+    }, 5000);
   },
   methods: {
     async getLogs(){
@@ -49,8 +48,6 @@ export default {
         const res = await axios.get('/logs/fetch');
         this.logs = res.data.logs;
         this.pending = res.data.pendingJobs;
-        console.log(this.logs);
-        console.log(this.pending);
       } catch (err){
         console.log(err);
       }
