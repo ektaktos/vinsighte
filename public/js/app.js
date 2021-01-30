@@ -2024,8 +2024,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 3:
                 res = _context.sent;
-                _this2.logs = res.logs;
-                _this2.pending = res.pendingJobs;
+                _this2.logs = res.data.logs;
+                _this2.pending = res.data.pendingJobs;
                 console.log(_this2.logs);
                 console.log(_this2.pending);
                 _context.next = 13;
