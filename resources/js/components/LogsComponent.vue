@@ -47,8 +47,8 @@ export default {
     async getLogs(){
       try {
         const res = await axios.get('/logs/fetch');
-        this.logs = res.logs;
-        this.pending = res.pendingJobs;
+        this.logs = res.data.logs;
+        this.pending = res.data.pendingJobs;
         console.log(this.logs);
         console.log(this.pending);
       } catch (err){
