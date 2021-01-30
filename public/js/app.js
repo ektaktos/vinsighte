@@ -1990,11 +1990,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['jobLogs', 'pendingJobs'],
+  props: ['job-logs', 'pending-jobs'],
   data: function data() {
     return {
-      logs: this.jobLogs,
-      pending: this.pendingJobs
+      logs: this.job - logs,
+      pending: this.pending - jobs
     };
   },
   created: function created() {
@@ -68129,7 +68129,7 @@ var render = function() {
     _c("table", { staticClass: "table" }, [
       _vm._m(0),
       _vm._v(" "),
-      _vm.logs.length > 0
+      !_vm.logs.length
         ? _c(
             "tbody",
             _vm._l(_vm.logs, function(log, index) {
