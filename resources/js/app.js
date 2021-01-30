@@ -13,7 +13,7 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 
 Vue.use(VueSweetalert2);
 Vue.filter('formatDate', (value) => {
-    const formatted = value ? moment(String(value)).format('MM/DD/YYYY, dddd, hA') : '';
+    const formatted = value ? moment(String(value)).format('DD MMM YYYY, HH:mm') : '';
     return formatted;
 });
 

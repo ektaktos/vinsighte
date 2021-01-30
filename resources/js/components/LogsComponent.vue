@@ -2,11 +2,11 @@
   <div class="table-responsive">
       <table class="table">
         <tr>
-          <th>sn</th>
-          <th>Image</th>
-          <th>status</th>
-          <th>Processed Data</th>
-          <th>Processed Date</th>
+          <th class="table-col-1">sn</th>
+          <th class="table-col-2">Image</th>
+          <th class="table-col-2">Status</th>
+          <th class="table-col-3">Processed Data</th>
+          <th class="table-col-4">Entry Time</th>
         </tr>
         <tbody v-if="logs.length">
           <tr v-for="(log, index) in logs" :key="index">
@@ -56,6 +56,17 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+  .table-col-1{
+    width: 3%;
+  }
+  .table-col-2{
+    width: 7%;
+  }
+  .table-col-3{
+    width: 70%;
+  }
+  .table-col-4{
+    width: 13%;
+  }
 </style>

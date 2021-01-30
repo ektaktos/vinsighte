@@ -101,6 +101,8 @@ export default {
             axios.post('/upload-image', postData, config)
             .then((res) => {
                 this.isLoading = false;
+                this.images = [];
+                this.imageDataUrl = [];
                 this.$swal('Success!!','Your Input has been Successfully processed', 'success').then(() => {
                     window.location.href = 'http://vinsighte.herokuapp.com/logs';
                 });
