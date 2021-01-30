@@ -2006,7 +2006,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       if (_this.pending > 0) {
         _this.getLogs();
       }
-    }, 60000);
+    }, 10000);
   },
   methods: {
     getLogs: function getLogs() {
@@ -2026,20 +2026,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 res = _context.sent;
                 _this2.logs = res.logs;
                 _this2.pending = res.pendingJobs;
-                _context.next = 11;
+                console.log(_this2.logs);
+                console.log(_this2.pending);
+                _context.next = 13;
                 break;
 
-              case 8:
-                _context.prev = 8;
+              case 10:
+                _context.prev = 10;
                 _context.t0 = _context["catch"](0);
                 console.log(_context.t0);
 
-              case 11:
+              case 13:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 8]]);
+        }, _callee, null, [[0, 10]]);
       }))();
     }
   }
