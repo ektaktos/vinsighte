@@ -43,12 +43,13 @@ class HomeController extends Controller
                 $id = $job->id;
                 $log = Logs::find($id);
                 $res = Http::get("http://dehbaiyor.herokuapp.com/ocr/results/{$job->jobId}")->json();
-                if ($res['status'] == 'finished') {
-                    $log->status = $res['status'];
-                    $log->processed_data = $res['text'][$id][0];
+                if ($res['job_status'] == 'finished') {
+                    $log->status = $res['job_status'];
+                    $log->processed_data = $res['results'][$id]['correct_text'];
+                    $log->raw_data = $res['results'][$id];
                     $log->processed_at = Carbon::now();
                     $log->save();
-                } else if($res['status'] == 'finished') {
+                } else if($res['job_status'] == 'failed') {
                     $log->status = 'failed';
                     $log->save();
                 } 

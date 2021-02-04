@@ -21,6 +21,7 @@ class CreateLogsTable extends Migration
             $table->string('format');
             $table->enum('status', ['started', 'finished', 'failed']);
             $table->longText('processed_data')->nullable();
+            $table->json('raw_data')->nullable();
             $table->datetime('processed_at')->nullable();
             $table->timestamps();
         });

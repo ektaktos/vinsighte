@@ -38,3 +38,10 @@ fieldset{
   background-color: #004e92;
   font-size: 13px;
 }
+
+/* Media query for non mobile devices */
+@media screen and (min-width: 760px) {
+  .content{
+    min-width: 96%;
+  }
+}

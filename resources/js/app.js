@@ -9,8 +9,10 @@ require('./bootstrap');
 window.Vue = require('vue');
 import VueSweetalert2 from 'vue-sweetalert2';
 import moment from 'moment';
+import TreeView from "vue-json-tree-view"
 import 'sweetalert2/dist/sweetalert2.min.css';
 
+Vue.use(TreeView);
 Vue.use(VueSweetalert2);
 Vue.filter('formatDate', (value) => {
     const formatted = value ? moment(String(value)).format('DD MMM YYYY, HH:mm') : '';
