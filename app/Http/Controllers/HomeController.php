@@ -43,6 +43,7 @@ class HomeController extends Controller
                 $id = $job->id;
                 $log = Logs::find($id);
                 $res = Http::get("http://dehbaiyor.herokuapp.com/ocr/results/{$job->jobId}")->json();
+                var_dump($res);
                 if ($res['job_status'] == 'finished') {
                     $log->status = $res['job_status'];
                     $log->processed_data = $res['results'][$id]['correct_text'];
