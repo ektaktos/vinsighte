@@ -21,8 +21,8 @@
                     <label class="col-sm-2 text-left p-0">Format</label>
                     <select class="form-control col-sm-8" v-model="format">
                         <option value=""> Select Output Format</option>
-                        <option value="csv">CSV</option>
-                        <option value="json">JSON</option>
+                        <option value="scanned">Scanned</option>
+                        <option value="non-scanned">Non-Scanned</option>
                     </select>
                 </div>
 

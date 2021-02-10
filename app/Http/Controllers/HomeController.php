@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use JD\Cloudder\Facades\Cloudder;
 use Illuminate\Support\Facades\Http;
-
+use Spatie\PdfToImage\Pdf;
 use ZipArchive;
 
 class HomeController extends Controller
@@ -114,6 +114,10 @@ class HomeController extends Controller
             Storage::disk('s3')->put($filePath, file_get_contents($image));
             return back()->withSuccess('Image uploaded successfully');
         }
+    }
+
+    public function pdfToImage(){
+        $pdf = new Pdf('');
     }
 
     public function zipImage($imagePath, $imageName){
