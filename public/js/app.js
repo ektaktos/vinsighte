@@ -2172,7 +2172,8 @@ __webpack_require__.r(__webpack_exports__);
       imageDataUrl: [],
       format: '',
       isLoading: false,
-      percentCompleted: 0
+      percentCompleted: 0,
+      errorMsg: false
     };
   },
   mounted: function mounted() {},
@@ -2223,15 +2224,16 @@ __webpack_require__.r(__webpack_exports__);
 
       postData.append('format', this.format);
       axios.post('/upload-image', postData, config).then(function (res) {
-        console.log(res);
         _this2.isLoading = false;
         _this2.images = [];
         _this2.imageDataUrl = [];
 
-        _this2.$swal('Success!!', 'Your Input has been Successfully processed', 'success').then(function () {// window.location.href = 'http://vinsighte.herokuapp.com/logs';
+        _this2.$swal('Success!!', 'Your Input has been Successfully processed', 'success').then(function () {
+          window.location.href = 'http://vinsighte.herokuapp.com/logs';
         });
       })["catch"](function (err) {
         _this2.isLoading = false;
+        _this2.errorMsg = true;
         console.log(err.response.data);
       });
     }
@@ -6737,7 +6739,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.spin[data-v-31177c13] {\n  display: inline-block;\n  width: 15px;\n  height: 15px;\n  border: 3px solid rgba(255,255,255,.3);\n  border-radius: 50%;\n  border-top-color: #fff;\n  animation: spin-data-v-31177c13 1s ease-in-out infinite;\n  -webkit-animation: spin-data-v-31177c13 1s ease-in-out infinite;\n  margin-left: 10px;\n}\n@keyframes spin-data-v-31177c13 {\nto { -webkit-transform: rotate(360deg);\n}\n}\n@-webkit-keyframes spin-data-v-31177c13 {\nto { -webkit-transform: rotate(360deg);\n}\n}\n", ""]);
+exports.push([module.i, "\n.spin[data-v-31177c13] {\n  display: inline-block;\n  width: 15px;\n  height: 15px;\n  border: 3px solid rgba(255,255,255,.3);\n  border-radius: 50%;\n  border-top-color: #fff;\n  animation: spin-data-v-31177c13 1s ease-in-out infinite;\n  -webkit-animation: spin-data-v-31177c13 1s ease-in-out infinite;\n  margin-left: 10px;\n}\n@keyframes spin-data-v-31177c13 {\nto { -webkit-transform: rotate(360deg);\n}\n}\n@-webkit-keyframes spin-data-v-31177c13 {\nto { -webkit-transform: rotate(360deg);\n}\n}\n.error[data-v-31177c13]{\n    color: #EE0E4C;\n    text-align: center;\n}\n", ""]);
 
 // exports
 
@@ -68370,7 +68372,7 @@ var render = function() {
                         _c(
                           "a",
                           { attrs: { href: log.image_url, target: "_blank" } },
-                          [_vm._v("Image")]
+                          [_vm._v("File")]
                         )
                       ]),
                       _vm._v(" "),
@@ -68558,6 +68560,14 @@ var render = function() {
                     ]
                   )
                 ]),
+                _vm._v(" "),
+                _vm.errorMsg
+                  ? _c("p", { staticClass: "error" }, [
+                      _vm._v(
+                        "There was a mismatch in the file uploaded and the format selected"
+                      )
+                    ])
+                  : _vm._e(),
                 _vm._v(" "),
                 _vm.imageDataUrl
                   ? _c(

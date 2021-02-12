@@ -76,11 +76,22 @@ class HomeController extends Controller
             'images.*.mimes' => 'Only jpeg, png, jpg and bmp images are allowed',
             'images.*.max' => 'Sorry! Maximum allowed size for an image is 2MB',
         ]);
+        $unScannedExtensions = array('docx', 'xlsx', 'pptx', 'html', 'pdf', 'txt', 'csv', 'java','c', 'h', 'ipynb', 'py', 'cpp');
+        $scannedExtensions = array('jpg', 'jpeg', 'png');
         $format = $request->format;
         $imagesData = [];
         foreach ($request->file() as $img) {
             $image = new Logs();
             $ext = $img->getClientOriginalExtension();
+            if ($format == 'scanned') {
+                if (!in_array($ext, $scannedExtensions)) {
+                    return response(['status' => 'error'], 400);
+                }
+            } else {
+                if (!in_array($ext, $unScannedExtensions)) {
+                    return response(['status' => 'error'], 400);
+                }
+            }
             $filename = Str::random(12).'.'.$ext;
             Cloudder::upload($img->getPathname(), null, array("resource_type" => "auto", "public_id" => $filename));
             $imageResult = Cloudder::getResult();

@@ -25,7 +25,7 @@
                         <option value="non-scanned">Non-Scanned</option>
                     </select>
                 </div>
-
+                <p class="error" v-if="errorMsg">There was a mismatch in the file uploaded and the format selected</p>
                 <div id="imagePreviewBox" v-if="imageDataUrl" >
                     <!-- <div v-for="(image, index) in imageDataUrl" :key="index"> -->
                         <img v-for="(image, index) in imageDataUrl" :key="index" :src="image" class="imagePreview">
@@ -57,6 +57,7 @@ export default {
             format: '',
             isLoading: false,
             percentCompleted: 0,
+            errorMsg: false,
         }
     },
     mounted(){
@@ -108,6 +109,7 @@ export default {
                 });
             }).catch((err) => {
                 this.isLoading = false;
+                this.errorMsg = true;
                 console.log(err.response.data);
             })
         }
@@ -133,5 +135,9 @@ export default {
   }
   @-webkit-keyframes spin {
       to { -webkit-transform: rotate(360deg); }
+  }
+  .error{
+      color: #EE0E4C;
+      text-align: center;
   }
 </style>
