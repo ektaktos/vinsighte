@@ -6,7 +6,7 @@
       <table class="table">
         <tr>
           <th class="table-col-1">sn</th>
-          <th class="table-col-2">Image</th>
+          <th class="table-col-2">File</th>
           <th class="table-col-2">Status</th>
           <th class="table-col-3">Processed Data</th>
           <th class="table-col-4">Entry Time</th>
@@ -14,7 +14,7 @@
         <tbody v-if="logs.length">
           <tr v-for="(log, index) in logs" :key="index" @click="showLog(log.raw_data)">
             <td> {{ index + 1 }}</td>
-            <td> <a :href="log.image_url " target="_blank">Image</a> </td>
+            <td> <a :href="log.image_url " target="_blank">File</a> </td>
             <td> {{ log.status }} </td>
             <td> {{ log.processed_data}} </td>
             <td> {{ log.created_at | formatDate}} </td>

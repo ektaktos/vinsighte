@@ -13,7 +13,7 @@
 
                 <div class="form-group form-inline">
                     <label class="col-sm-2 text-left p-0">Image</label>
-                    <input type="file" ref="file" id="file-upload" multiple accept="image/*, application/pdf" @change="uploadImage">
+                    <input type="file" ref="file" id="file-upload" multiple @change="uploadImage">
                     <!-- <input type="file" ref="file" id="file-upload" @change="uploadImage"> -->
                 </div>
                     <!-- {{ user.name }} -->

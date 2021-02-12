@@ -76,23 +76,34 @@ class HomeController extends Controller
             'images.*.mimes' => 'Only jpeg, png, jpg and bmp images are allowed',
             'images.*.max' => 'Sorry! Maximum allowed size for an image is 2MB',
         ]);
-
+        $format = $request->format;
         $imagesData = [];
         foreach ($request->file() as $img) {
             $image = new Logs();
-            Cloudder::upload($img);
+            $ext = $img->getClientOriginalExtension();
+            $filename = Str::random(12).'.'.$ext;
+            Cloudder::upload($img->getPathname(), null, array("resource_type" => "auto", "public_id" => $filename));
             $imageResult = Cloudder::getResult();
             // Save Image upload to cloudinary
             $image->user_id = Auth::id();
             $image->image_url = $imageResult['url'];
-            $image->format = 'json';
+            $image->format = $format;
             $image->save();
-            $response = Http::get('https://dehbaiyor.herokuapp.com/ocr/'.$image->id.','.$imageResult['url']);
-            $imagesData[] =  $response->json();
-            $saveProcessed = Logs::find($image->id);
 
-            $saveProcessed->jobId = $response->json();
-            // $saveProcessed->processed_at = Carbon::now();
+            $saveProcessed = Logs::find($image->id);
+            if ($format == 'scanned') {
+                $response = Http::get('https://dehbaiyor.herokuapp.com/ocr/'.$image->id.','.$imageResult['url']);
+                $imagesData[] =  $response->json();
+                $saveProcessed->jobId = $response->json();
+            } else {
+                $response = Http::get('https://vs-text-extract.herokuapp.com/'.$image->id.','.$imageResult['url']);
+                $imagesData[] =  $response->json();
+                $res = $response->json();
+                $saveProcessed->job_status = 'finished';
+                $saveProcessed->raw_data = $res;
+                $saveProcessed->processed_data = $res['extracted'][$filename];
+            }
+            
             $saveProcessed->save();
         }
         return response(['messsage' => $imagesData], 200);

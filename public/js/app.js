@@ -2223,12 +2223,12 @@ __webpack_require__.r(__webpack_exports__);
 
       postData.append('format', this.format);
       axios.post('/upload-image', postData, config).then(function (res) {
+        console.log(res);
         _this2.isLoading = false;
         _this2.images = [];
         _this2.imageDataUrl = [];
 
-        _this2.$swal('Success!!', 'Your Input has been Successfully processed', 'success').then(function () {
-          window.location.href = 'http://vinsighte.herokuapp.com/logs';
+        _this2.$swal('Success!!', 'Your Input has been Successfully processed', 'success').then(function () {// window.location.href = 'http://vinsighte.herokuapp.com/logs';
         });
       })["catch"](function (err) {
         _this2.isLoading = false;
@@ -68414,7 +68414,7 @@ var staticRenderFns = [
     return _c("tr", [
       _c("th", { staticClass: "table-col-1" }, [_vm._v("sn")]),
       _vm._v(" "),
-      _c("th", { staticClass: "table-col-2" }, [_vm._v("Image")]),
+      _c("th", { staticClass: "table-col-2" }, [_vm._v("File")]),
       _vm._v(" "),
       _c("th", { staticClass: "table-col-2" }, [_vm._v("Status")]),
       _vm._v(" "),
@@ -68505,12 +68505,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("input", {
                     ref: "file",
-                    attrs: {
-                      type: "file",
-                      id: "file-upload",
-                      multiple: "",
-                      accept: "image/*, application/pdf"
-                    },
+                    attrs: { type: "file", id: "file-upload", multiple: "" },
                     on: { change: _vm.uploadImage }
                   })
                 ]),
@@ -68553,12 +68548,12 @@ var render = function() {
                         _vm._v(" Select Output Format")
                       ]),
                       _vm._v(" "),
-                      _c("option", { attrs: { value: "csv" } }, [
-                        _vm._v("CSV")
+                      _c("option", { attrs: { value: "scanned" } }, [
+                        _vm._v("Scanned")
                       ]),
                       _vm._v(" "),
-                      _c("option", { attrs: { value: "json" } }, [
-                        _vm._v("JSON")
+                      _c("option", { attrs: { value: "non-scanned" } }, [
+                        _vm._v("Non-Scanned")
                       ])
                     ]
                   )
@@ -81354,8 +81349,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/macbookair/Documents/vinsighte/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/macbookair/Documents/vinsighte/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/macbookair/Documents/Github/vinsighte/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/macbookair/Documents/Github/vinsighte/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
