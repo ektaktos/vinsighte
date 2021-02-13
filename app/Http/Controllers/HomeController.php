@@ -77,7 +77,7 @@ class HomeController extends Controller
             'images.*.max' => 'Sorry! Maximum allowed size for an image is 2MB',
         ]);
         $unScannedExtensions = array('docx', 'xlsx', 'pptx', 'html', 'pdf', 'txt', 'csv', 'java','c', 'h', 'ipynb', 'py', 'cpp');
-        $scannedExtensions = array('jpg', 'jpeg', 'png');
+        $scannedExtensions = array('jpg', 'jpeg', 'gif', 'png');
         $format = $request->format;
         $imagesData = [];
         foreach ($request->file() as $img) {

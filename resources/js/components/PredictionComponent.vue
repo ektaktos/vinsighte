@@ -11,13 +11,34 @@
                     <input type="text" class="form-control col-sm-8" v-model="user.name">
                 </div>
 
-                <div class="form-group form-inline">
+                <!-- <div class="form-group form-inline">
                     <label class="col-sm-2 text-left p-0">Image</label>
                     <input type="file" ref="file" id="file-upload" multiple @change="uploadImage">
-                    <!-- <input type="file" ref="file" id="file-upload" @change="uploadImage"> -->
-                </div>
+                    <input type="file" ref="file" id="file-upload" @change="uploadImage">
+                </div> -->
                     <!-- {{ user.name }} -->
-                <div class="form-group form-inline">
+                <div id="imagePreviewBox" v-if="imageDataUrl.length > 0" >
+                    <div v-for="(image, index) in imageDataUrl" :key="index" class="imagePreviewBox2">
+                        <div @click="removeFile(index)"><img :src="'images/close.png'" width="20" height="20"></div>
+                        <img :src="image" class="imagePreview">
+                    </div>
+                    <div class="imagePreviewBox2 ml-2">
+                        <label for="file-upload">
+                        <img :src="'images/add-image.png'" class="imagePreview">
+                        </label>
+                        <input type="file" ref="file" id="file-upload" multiple @change="uploadImage">
+                    </div>
+                </div>
+                <div class="emptyImages" v-else>
+                    <div class="imagePreviewBox2">
+                        <label for="file-upload">
+                        <img :src="'images/add-image.png'" class="imagePreview">
+                        </label>
+                        <input type="file" ref="file" id="file-upload" multiple @change="uploadImage">
+                    </div>
+                </div>
+                <p class="error" v-if="errorMsg">There was a mismatch in the file uploaded and the format selected</p>
+                 <div class="form-group form-inline">
                     <label class="col-sm-2 text-left p-0">Format</label>
                     <select class="form-control col-sm-8" v-model="format">
                         <option value=""> Select Output Format</option>
@@ -25,19 +46,8 @@
                         <option value="non-scanned">Non-Scanned</option>
                     </select>
                 </div>
-                <p class="error" v-if="errorMsg">There was a mismatch in the file uploaded and the format selected</p>
-                <div id="imagePreviewBox" v-if="imageDataUrl" >
-                    <!-- <div v-for="(image, index) in imageDataUrl" :key="index"> -->
-                        <img v-for="(image, index) in imageDataUrl" :key="index" :src="image" class="imagePreview">
-                    <!-- </div> -->
-                </div>
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="w-50">
-                        <progress max="100" :value.prop="percentCompleted"></progress>
-                    </div>
-                    <div class="w-50 text-right">
-                        <button class="btn btn-primary" type="submit">Start Extraction<span class="spin" v-if="isLoading"></span></button>
-                    </div>
+                <div class="mt-4">
+                    <button class="btn btn-primary btn-block" type="submit" :disabled="isDisabled">Start Extraction<span class="spin" v-if="isLoading"></span></button>
                 </div>
                 </form>
             </fieldset>
@@ -60,10 +70,20 @@ export default {
             errorMsg: false,
         }
     },
-    mounted(){
-        
+    computed: {
+    isDisabled() {
+      if (!this.images || !this.format) {
+        return true;
+      }
+      return false;
     },
+  },
     methods: {
+        removeFile(index){
+            this.imageDataUrl.splice(index, 1);
+            this.images.splice(index, 1);
+            console.log(this.images);
+        },
         uploadImage(e) {
             const tempImages = this.$refs.file.files;
             for (let i = 0; i < tempImages.length; i++) {
@@ -71,8 +91,6 @@ export default {
                 this.images.push(element); 
             }
             this.image = this.$refs.file.files[0];
-            // console.log(this.images);
-            // console.log(this.image);
             const images = e.target.files;
             for (let i = 0; i < images.length; i++) {
                 const reader = new FileReader();
@@ -118,7 +136,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
     .spin {
     display: inline-block;
     width: 15px;
@@ -139,5 +157,21 @@ export default {
   .error{
       color: #EE0E4C;
       text-align: center;
+  }
+  .emptyImages{
+    width: 100%;
+    .imagePreviewBox2{
+        width: 25%;
+        margin: auto;
+    }
+  }
+  .imagePreviewBox2{
+    width: 25%;
+    margin-top: .5rem;
+  }
+  input[type = "file"]{
+    opacity: 0;
+    position: absolute;
+    width: 5px
   }
 </style>

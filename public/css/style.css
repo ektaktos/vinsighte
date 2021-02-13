@@ -18,6 +18,7 @@ fieldset{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  align-items: center;
   margin: 0 auto;
 }
 
@@ -27,11 +28,9 @@ fieldset{
 
 .imagePreview{
   object-fit: contain;
-  width: 25%;
-  margin-left: 1rem;
-}
-.imagePreview:first-child{
-  margin: 0;
+  width: 80%;
+  margin: auto;
+  /* margin-left: 1rem; */
 }
 
 .btn-primary{
