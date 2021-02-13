@@ -113,6 +113,9 @@ class HomeController extends Controller
                 $response = Http::get('https://dehbaiyor.herokuapp.com/ocr/'.$image->id.','.$imageResult['url']);
                 $imagesData[] =  $response->json();
                 $saveProcessed->jobId = $response->json();
+                if (empty($response->json())) {
+                    $saveProcessed->status = 'failed';
+                }
             } else {
                 $response = Http::get('https://vs-text-extract.herokuapp.com/'.$image->id.','.$imageResult['url']);
                 $imagesData[] =  $response->json();
