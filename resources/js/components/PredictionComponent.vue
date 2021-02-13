@@ -18,7 +18,7 @@
                 </div> -->
                     <!-- {{ user.name }} -->
                 <div id="imagePreviewBox" v-if="imageDataUrl.length > 0" >
-                    <div v-for="(image, index) in imageDataUrl" :key="index" class="imagePreviewBox2">
+                    <div v-for="(image, index) in imageDataUrl" :key="index" class="imagePreviewBox2 text-right">
                         <div @click="removeFile(index)"><img :src="'images/close.png'" width="20" height="20"></div>
                         <img :src="image" class="imagePreview">
                     </div>
@@ -37,8 +37,8 @@
                         <input type="file" ref="file" id="file-upload" multiple @change="uploadImage">
                     </div>
                 </div>
-                <p class="error" v-if="errorMsg">There was a mismatch in the file uploaded and the format selected</p>
-                 <div class="form-group form-inline">
+                <p class="error mt-1" v-if="errorMsg">There was a mismatch in the file uploaded and the format selected</p>
+                 <div class="form-group form-inline mt-2">
                     <label class="col-sm-2 text-left p-0">Format</label>
                     <select class="form-control col-sm-8" v-model="format">
                         <option value=""> Select Output Format</option>
@@ -157,6 +157,7 @@ export default {
   .error{
       color: #EE0E4C;
       text-align: center;
+      line-height: 10px;
   }
   .emptyImages{
     width: 100%;
@@ -168,6 +169,7 @@ export default {
   .imagePreviewBox2{
     width: 25%;
     margin-top: .5rem;
+    text-align: center;
   }
   input[type = "file"]{
     opacity: 0;

@@ -6703,7 +6703,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".spin[data-v-31177c13] {\n  display: inline-block;\n  width: 15px;\n  height: 15px;\n  border: 3px solid rgba(255, 255, 255, 0.3);\n  border-radius: 50%;\n  border-top-color: #fff;\n  animation: spin-data-v-31177c13 1s ease-in-out infinite;\n  -webkit-animation: spin-data-v-31177c13 1s ease-in-out infinite;\n  margin-left: 10px;\n}\n@keyframes spin-data-v-31177c13 {\nto {\n    -webkit-transform: rotate(360deg);\n}\n}\n@-webkit-keyframes spin-data-v-31177c13 {\nto {\n    -webkit-transform: rotate(360deg);\n}\n}\n.error[data-v-31177c13] {\n  color: #EE0E4C;\n  text-align: center;\n}\n.emptyImages[data-v-31177c13] {\n  width: 100%;\n}\n.emptyImages .imagePreviewBox2[data-v-31177c13] {\n  width: 25%;\n  margin: auto;\n}\n.imagePreviewBox2[data-v-31177c13] {\n  width: 25%;\n  margin-top: 0.5rem;\n}\ninput[type=file][data-v-31177c13] {\n  opacity: 0;\n  position: absolute;\n  width: 5px;\n}", ""]);
+exports.push([module.i, ".spin[data-v-31177c13] {\n  display: inline-block;\n  width: 15px;\n  height: 15px;\n  border: 3px solid rgba(255, 255, 255, 0.3);\n  border-radius: 50%;\n  border-top-color: #fff;\n  animation: spin-data-v-31177c13 1s ease-in-out infinite;\n  -webkit-animation: spin-data-v-31177c13 1s ease-in-out infinite;\n  margin-left: 10px;\n}\n@keyframes spin-data-v-31177c13 {\nto {\n    -webkit-transform: rotate(360deg);\n}\n}\n@-webkit-keyframes spin-data-v-31177c13 {\nto {\n    -webkit-transform: rotate(360deg);\n}\n}\n.error[data-v-31177c13] {\n  color: #EE0E4C;\n  text-align: center;\n  line-height: 10px;\n}\n.emptyImages[data-v-31177c13] {\n  width: 100%;\n}\n.emptyImages .imagePreviewBox2[data-v-31177c13] {\n  width: 25%;\n  margin: auto;\n}\n.imagePreviewBox2[data-v-31177c13] {\n  width: 25%;\n  margin-top: 0.5rem;\n  text-align: center;\n}\ninput[type=file][data-v-31177c13] {\n  opacity: 0;\n  position: absolute;\n  width: 5px;\n}", ""]);
 
 // exports
 
@@ -68521,63 +68521,6 @@ var render = function() {
                   })
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "form-group form-inline" }, [
-                  _c("label", { staticClass: "col-sm-2 text-left p-0" }, [
-                    _vm._v("Format")
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "select",
-                    {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.format,
-                          expression: "format"
-                        }
-                      ],
-                      staticClass: "form-control col-sm-8",
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.format = $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        }
-                      }
-                    },
-                    [
-                      _c("option", { attrs: { value: "" } }, [
-                        _vm._v(" Select Output Format")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "scanned" } }, [
-                        _vm._v("Scanned")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "non-scanned" } }, [
-                        _vm._v("Non-Scanned")
-                      ])
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _vm.errorMsg
-                  ? _c("p", { staticClass: "error" }, [
-                      _vm._v(
-                        "There was a mismatch in the file uploaded and the format selected"
-                      )
-                    ])
-                  : _vm._e(),
-                _vm._v(" "),
                 _vm.imageDataUrl.length > 0
                   ? _c(
                       "div",
@@ -68586,7 +68529,10 @@ var render = function() {
                         _vm._l(_vm.imageDataUrl, function(image, index) {
                           return _c(
                             "div",
-                            { key: index, staticClass: "imagePreviewBox2" },
+                            {
+                              key: index,
+                              staticClass: "imagePreviewBox2 text-right"
+                            },
                             [
                               _c(
                                 "div",
@@ -68657,6 +68603,63 @@ var render = function() {
                         })
                       ])
                     ]),
+                _vm._v(" "),
+                _vm.errorMsg
+                  ? _c("p", { staticClass: "error mt-1" }, [
+                      _vm._v(
+                        "There was a mismatch in the file uploaded and the format selected"
+                      )
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group form-inline mt-2" }, [
+                  _c("label", { staticClass: "col-sm-2 text-left p-0" }, [
+                    _vm._v("Format")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.format,
+                          expression: "format"
+                        }
+                      ],
+                      staticClass: "form-control col-sm-8",
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.format = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "" } }, [
+                        _vm._v(" Select Output Format")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "scanned" } }, [
+                        _vm._v("Scanned")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "non-scanned" } }, [
+                        _vm._v("Non-Scanned")
+                      ])
+                    ]
+                  )
+                ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "mt-4" }, [
                   _c(
