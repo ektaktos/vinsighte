@@ -92,12 +92,19 @@ class HomeController extends Controller
                     return response(['status' => 'error'], 400);
                 }
             }
-            $filename = Str::random(12).'.'.$ext;
-            Cloudder::upload($img->getPathname(), null, array("resource_type" => "auto", "public_id" => $filename));
+            $fullname = pathinfo($img->getClientOriginalName(), PATHINFO_FILENAME);
+            $filename = $fullname.'.'.$ext;
+            $cloudinaryEnabled = array('pdf', 'jpg', 'jpeg', 'png');
+            if (in_array($ext, $cloudinaryEnabled)) {
+                Cloudder::upload($img->getPathname(), null, array("resource_type" => "auto", "public_id" => $fullname));
+            } else {
+                Cloudder::upload($img->getPathname(), null, array("resource_type" => "auto", "public_id" => $filename));
+            }
             $imageResult = Cloudder::getResult();
             // Save Image upload to cloudinary
             $image->user_id = Auth::id();
-            $image->image_url = $imageResult['url'];
+            $image->file_url = $imageResult['url'];
+            $image->filename = $filename;
             $image->format = $format;
             $image->save();
 

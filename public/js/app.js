@@ -68392,8 +68392,8 @@ var render = function() {
                       _c("td", [
                         _c(
                           "a",
-                          { attrs: { href: log.image_url, target: "_blank" } },
-                          [_vm._v("File")]
+                          { attrs: { href: log.file_url, target: "_blank" } },
+                          [_vm._v(_vm._s(log.filename))]
                         )
                       ]),
                       _vm._v(" "),

@@ -14,7 +14,7 @@
         <tbody v-if="logs.length">
           <tr v-for="(log, index) in logs" :key="index" @click="showLog(log.raw_data)">
             <td> {{ index + 1 }}</td>
-            <td> <a :href="log.image_url " target="_blank">File</a> </td>
+            <td> <a :href="log.file_url " target="_blank">{{ log.filename }}</a> </td>
             <td> {{ log.status }} </td>
             <td style="white-space: nowrap; text-overflow:ellipsis; overflow: hidden; max-width:1px;"> {{ log.processed_data}} </td>
             <td> {{ log.created_at | formatDate}} </td>

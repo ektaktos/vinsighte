@@ -17,7 +17,8 @@ class CreateLogsTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->string('jobId')->nullable();
-            $table->string('image_url');
+            $table->string('file_url');
+            $table->string('filename');
             $table->string('format');
             $table->enum('status', ['started', 'finished', 'failed']);
             $table->longText('processed_data')->nullable();
