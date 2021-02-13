@@ -6703,7 +6703,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".spin[data-v-31177c13] {\n  display: inline-block;\n  width: 15px;\n  height: 15px;\n  border: 3px solid rgba(255, 255, 255, 0.3);\n  border-radius: 50%;\n  border-top-color: #fff;\n  animation: spin-data-v-31177c13 1s ease-in-out infinite;\n  -webkit-animation: spin-data-v-31177c13 1s ease-in-out infinite;\n  margin-left: 10px;\n}\n@keyframes spin-data-v-31177c13 {\nto {\n    -webkit-transform: rotate(360deg);\n}\n}\n@-webkit-keyframes spin-data-v-31177c13 {\nto {\n    -webkit-transform: rotate(360deg);\n}\n}\n.error[data-v-31177c13] {\n  color: #EE0E4C;\n  text-align: center;\n  line-height: 10px;\n}\n.emptyImages[data-v-31177c13] {\n  width: 100%;\n}\n.emptyImages .imagePreviewBox2[data-v-31177c13] {\n  width: 25%;\n  margin: auto;\n}\n.imagePreviewBox2[data-v-31177c13] {\n  width: 25%;\n  margin-top: 0.5rem;\n  text-align: center;\n}\ninput[type=file][data-v-31177c13] {\n  opacity: 0;\n  position: absolute;\n  width: 5px;\n}", ""]);
+exports.push([module.i, ".spin[data-v-31177c13] {\n  display: inline-block;\n  width: 15px;\n  height: 15px;\n  border: 3px solid rgba(255, 255, 255, 0.3);\n  border-radius: 50%;\n  border-top-color: #fff;\n  animation: spin-data-v-31177c13 1s ease-in-out infinite;\n  -webkit-animation: spin-data-v-31177c13 1s ease-in-out infinite;\n  margin-left: 10px;\n}\n@keyframes spin-data-v-31177c13 {\nto {\n    -webkit-transform: rotate(360deg);\n}\n}\n@-webkit-keyframes spin-data-v-31177c13 {\nto {\n    -webkit-transform: rotate(360deg);\n}\n}\n.error[data-v-31177c13] {\n  color: #EE0E4C;\n  text-align: center;\n  line-height: 15px;\n}\n.emptyImages[data-v-31177c13] {\n  width: 100%;\n}\n.emptyImages .imagePreviewBox2[data-v-31177c13] {\n  width: 25%;\n  margin: auto;\n}\n.imagePreviewBox2[data-v-31177c13] {\n  width: 25%;\n  margin-top: 0.5rem;\n  text-align: center;\n}\ninput[type=file][data-v-31177c13] {\n  opacity: 0;\n  position: absolute;\n  width: 5px;\n}", ""]);
 
 // exports
 
@@ -68399,9 +68399,18 @@ var render = function() {
                       _vm._v(" "),
                       _c("td", [_vm._v(" " + _vm._s(log.status) + " ")]),
                       _vm._v(" "),
-                      _c("td", [
-                        _vm._v(" " + _vm._s(log.processed_data) + " ")
-                      ]),
+                      _c(
+                        "td",
+                        {
+                          staticStyle: {
+                            "white-space": "nowrap",
+                            "text-overflow": "ellipsis",
+                            overflow: "hidden",
+                            "max-width": "1px"
+                          }
+                        },
+                        [_vm._v(" " + _vm._s(log.processed_data) + " ")]
+                      ),
                       _vm._v(" "),
                       _c("td", [
                         _vm._v(

@@ -110,7 +110,7 @@ class HomeController extends Controller
                 $response = Http::get('https://vs-text-extract.herokuapp.com/'.$image->id.','.$imageResult['url']);
                 $imagesData[] =  $response->json();
                 $res = $response->json();
-                $saveProcessed->job_status = 'finished';
+                $saveProcessed->status = 'finished';
                 $saveProcessed->raw_data = $res;
                 $saveProcessed->processed_data = $res['extracted'][$filename];
             }

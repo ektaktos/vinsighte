@@ -157,7 +157,7 @@ export default {
   .error{
       color: #EE0E4C;
       text-align: center;
-      line-height: 10px;
+      line-height: 15px;
   }
   .emptyImages{
     width: 100%;

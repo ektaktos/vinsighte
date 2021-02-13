@@ -16,7 +16,7 @@
             <td> {{ index + 1 }}</td>
             <td> <a :href="log.image_url " target="_blank">File</a> </td>
             <td> {{ log.status }} </td>
-            <td> {{ log.processed_data}} </td>
+            <td style="white-space: nowrap; text-overflow:ellipsis; overflow: hidden; max-width:1px;"> {{ log.processed_data}} </td>
             <td> {{ log.created_at | formatDate}} </td>
           </tr>
         </tbody>

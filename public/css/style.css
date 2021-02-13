@@ -38,6 +38,12 @@ fieldset{
   font-size: 13px;
 }
 
+.truncate-text{
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  /* -webkit-box-orient: vertical; */
+}
+
 /* Media query for non mobile devices */
 @media screen and (min-width: 760px) {
   .content{
