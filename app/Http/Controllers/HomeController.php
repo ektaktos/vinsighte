@@ -109,7 +109,7 @@ class HomeController extends Controller
             $image->save();
 
             $saveProcessed = Logs::find($image->id);
-            if ($format == 'scanned') {
+            if (in_array($ext, $cloudinaryEnabled)) {
                 $response = Http::get('https://dehbaiyor.herokuapp.com/ocr/'.$image->id.','.$imageResult['url']);
                 $imagesData[] =  $response->json();
                 $saveProcessed->jobId = $response->json();
