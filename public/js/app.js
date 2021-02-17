@@ -2181,6 +2181,7 @@ __webpack_require__.r(__webpack_exports__);
       image: '',
       imageDataUrl: [],
       format: '',
+      showFormat: false,
       isLoading: false,
       percentCompleted: 0,
       errorMsg: false
@@ -2188,7 +2189,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     isDisabled: function isDisabled() {
-      if (!this.images || !this.format) {
+      if (this.images.length < 1) {
+        return true;
+      }
+
+      if (this.showFormat && !this.format) {
         return true;
       }
 
@@ -2209,6 +2214,10 @@ __webpack_require__.r(__webpack_exports__);
       for (var i = 0; i < tempImages.length; i++) {
         var element = tempImages[i];
         this.images.push(element);
+
+        if (element['type'] === 'application/pdf') {
+          this.showFormat = true;
+        }
       }
 
       this.image = this.$refs.file.files[0];
@@ -68621,54 +68630,56 @@ var render = function() {
                     ])
                   : _vm._e(),
                 _vm._v(" "),
-                _c("div", { staticClass: "form-group form-inline mt-2" }, [
-                  _c("label", { staticClass: "col-sm-2 text-left p-0" }, [
-                    _vm._v("Format")
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "select",
-                    {
-                      directives: [
+                _vm.showFormat
+                  ? _c("div", { staticClass: "form-group form-inline mt-2" }, [
+                      _c("label", { staticClass: "col-sm-2 text-left p-0" }, [
+                        _vm._v("Format")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
                         {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.format,
-                          expression: "format"
-                        }
-                      ],
-                      staticClass: "form-control col-sm-8",
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.format = $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        }
-                      }
-                    },
-                    [
-                      _c("option", { attrs: { value: "" } }, [
-                        _vm._v(" Select Output Format")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "scanned" } }, [
-                        _vm._v("Scanned")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "non-scanned" } }, [
-                        _vm._v("Non-Scanned")
-                      ])
-                    ]
-                  )
-                ]),
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.format,
+                              expression: "format"
+                            }
+                          ],
+                          staticClass: "form-control col-sm-8",
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.format = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
+                          }
+                        },
+                        [
+                          _c("option", { attrs: { value: "" } }, [
+                            _vm._v(" Select Output Format")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "scanned" } }, [
+                            _vm._v("Scanned")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "non-scanned" } }, [
+                            _vm._v("Non-Scanned")
+                          ])
+                        ]
+                      )
+                    ])
+                  : _vm._e(),
                 _vm._v(" "),
                 _c("div", { staticClass: "mt-4" }, [
                   _c(

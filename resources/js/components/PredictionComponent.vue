@@ -38,7 +38,7 @@
                     </div>
                 </div>
                 <p class="error mt-1" v-if="errorMsg">There was a mismatch in the file uploaded and the format selected</p>
-                 <div class="form-group form-inline mt-2">
+                 <div class="form-group form-inline mt-2" v-if="showFormat">
                     <label class="col-sm-2 text-left p-0">Format</label>
                     <select class="form-control col-sm-8" v-model="format">
                         <option value=""> Select Output Format</option>
@@ -65,6 +65,7 @@ export default {
             image: '',
             imageDataUrl: [],
             format: '',
+            showFormat: false,
             isLoading: false,
             percentCompleted: 0,
             errorMsg: false,
@@ -72,9 +73,12 @@ export default {
     },
     computed: {
     isDisabled() {
-      if (!this.images || !this.format) {
+      if (this.images.length < 1) {
         return true;
-      }
+      } 
+      if (this.showFormat && !this.format) {
+        return true
+      } 
       return false;
     },
   },
@@ -89,6 +93,9 @@ export default {
             for (let i = 0; i < tempImages.length; i++) {
                 const element = tempImages[i];
                 this.images.push(element); 
+                if (element['type'] === 'application/pdf') {
+                    this.showFormat = true;
+                }
             }
             this.image = this.$refs.file.files[0];
             const images = e.target.files;
