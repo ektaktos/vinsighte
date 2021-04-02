@@ -49,10 +49,13 @@ class HomeController extends Controller
                     $log->raw_data = $res['results'][$id];
                     $log->processed_at = Carbon::now();
                     $log->save();
-                } else if($res['job_status'] == 'failed') {
+                } else if(!empty($res['job_status']) && $res['job_status'] == 'failed') {
                     $log->status = 'failed';
                     $log->save();
-                } 
+                } else {
+                    $log->status = 'failed';
+                    $log->save();
+                }
             }
         }
         // return response(['response' => $res]);
